@@ -2,13 +2,14 @@
   "name": "fast-api",
   "version": "1.0.0",
   "description": "fast-api code",
-  "main": "app.js",
+  "main": "./app/app2.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Diego Santana",
   "license": "ISC",
   "dependencies": {
+    "date-holidays": "^1.6.2",
     "express": "^4.17.1",
     "js-yaml": "^3.14.0",
     "mongodb": "^3.6.0"
