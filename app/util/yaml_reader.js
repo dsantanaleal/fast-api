@@ -1,7 +1,7 @@
 const fs = require('fs');
 const yaml = require('js-yaml');
 
-var readYmlFile = function(filePath) {
+module.exports = (filePath) => {
     try {
         let fileContents = fs.readFileSync(filePath, 'utf8');
         let data = yaml.safeLoad(fileContents);
@@ -9,6 +9,4 @@ var readYmlFile = function(filePath) {
     } catch (e) {
         console.log(e);
     }
-}
-
-module.exports = readYmlFile;
+};

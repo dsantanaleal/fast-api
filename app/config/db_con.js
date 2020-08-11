@@ -1,25 +1,28 @@
 const Properties = require('../util/yaml_reader.js');
-const { MongoClient } = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
+let db_properties = Properties("./secure_properties/properties.yaml");
+let callback, db;
+// Connection URL
+const mongoURL = db_properties.db.mongoURL;
+// Database Name
+const dbName = db_properties.db.database;
 
-var db_properties = Properties("../secure_properties/properties.yaml").db;
-const mongoURL = db_properties.mongoURL;
-const dbName = db_properties.database;
+console.log(mongoURL);
+console.log(dbName);
 
-var db;
-
+// Use connect method to connect to the server
 MongoClient.connect(mongoURL, (err, client) => {
-    if(err) {
-        console.log("Error while connecting");
-    }
-    db = client.db(dbName);
+  console.log("Connected successfully to server");
+
+  db = client.db(dbName);
+  callback(db)
+  client.close();
 });
 
-function run(collectionName) {
-    try {
-        var collection = db.collection(collectionName);
-        console.log(collection.find().toArray());
-    } finally {
-    }
+module.exports = function(cb){
+  if(typeof db != 'undefined' ){
+    cb(db)
+  }else{
+    callback = cb
+  }
 }
-
-run("users");
